@@ -31,8 +31,7 @@ print end_date.strftime('%Y-%m-%dT%H:%M:%S')
 
 cities.keys()
 with con:
-    cur.execute('CREATE TABLE daily_maxtemp (day_of_reading INT, Austin REAL, 
-    Boston REAL, Chicago REAL, Cleveland REAL, Denver REAL);')
+    cur.execute('CREATE TABLE daily_maxtemp(day_of_reading INT, Austin REAL, Boston REAL, Chicago REAL, Cleveland REAL, Denver REAL);')
 with con:
     while start_date < end_date:
         cur.execute("INSERT INTO daily_maxtemp(day_of_reading) VALUES (?)", 
@@ -41,8 +40,8 @@ with con:
 
 #loop through the cities and query the API
 for k,v in cities.iteritems():
-    start_date = end_date - datetime.timedelta(days=30) #reset value each time
-    through the loop 
+    start_date = end_date - datetime.timedelta(days=30)
+    #reset value each timethrough the loop 
     while start_date < end_date:
 
         #query for the value
@@ -60,8 +59,7 @@ for k,v in cities.iteritems():
         start_date += datetime.timedelta(days=1) 
         
 
-df = pd.read_sql_query
-("SELECT * FROM daily_maxtemp",con,index_col='day_of_reading')
+df = pd.read_sql_query("SELECT * FROM daily_maxtemp",con,index_col='day_of_reading')
 #mean temp for each city
 print (df)
 
