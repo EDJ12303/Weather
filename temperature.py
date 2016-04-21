@@ -31,9 +31,12 @@ print end_date.strftime('%Y-%m-%dT%H:%M:%S')
 
 cities.keys()
 with con:
-    cur.execute('CREATE TABLE daily_maxtemp(day_of_reading INT, Austin REAL, Boston REAL, Chicago REAL, Cleveland REAL, Denver REAL);')
+    #tried to change line length to make code more readable but it threw an#
+    #error upon breaking up the line#
+    cur.execute('CREATE TABLE daily_maxtemp (day_of_reading INT, Austin REAL, Boston REAL, Chicago REAL, Cleveland REAL, Denver REAL);')
 with con:
     while start_date < end_date:
+        #changed line length to make the code more readable
         cur.execute("INSERT INTO daily_maxtemp(day_of_reading) VALUES (?)", 
                     (int(start_date.strftime('%Y%m%d')),))
         start_date += datetime.timedelta(days=1)
@@ -51,9 +54,7 @@ for k,v in cities.iteritems():
         
         with con:
             #insert the temperature max to the database
-            cur.execute('UPDATE daily_maxtemp SET ' + k + ' = '
-            + str(r.json()['daily']['data'][0]['temperatureMax']) 
-            + ' WHERE day_of_reading = ' + start_date.strftime('%Y%m%d'))
+            cur.execute('UPDATE daily_maxtemp SET '+ k +' = '+str(r.json()['daily']['data'][0]['temperatureMax']) + ' WHERE day_of_reading = ' + start_date.strftime('%Y%m%d'))
             
         #increment start_date to the next day 
         start_date += datetime.timedelta(days=1) 
